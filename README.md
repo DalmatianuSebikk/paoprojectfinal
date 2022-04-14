@@ -2,6 +2,7 @@
 # Ionel Sebastian
 
 ACTIUNI/INTEROGARI:
+```
     - Clientul are posibilitatea sa isi aleaga doar una dintre investigatii (Analize, Consultatii, Ecografii).
     - Dupa ce isi alege investigatia dorita, mesajul este transmis cu un obiect de tip Programare si va avea un status de stand by
     - In functie de medicii disponibili, ei pot modifica respectiva programare, acceptand-o sau refuzand-o.
@@ -12,8 +13,9 @@ ACTIUNI/INTEROGARI:
     - Se pot afisa date despre cabinete, pacienti, medici si investigatii
     - Medicii pot citi date despre clienti
     - Doar medicii pot modifica datele investigatiilor
-
+```
 TIPURI DE OBIECTE:
+```
     - Client
     - CabinetMedical
     - Programare
@@ -23,3 +25,4 @@ TIPURI DE OBIECTE:
     - Ecografie : Investigatie
     - Reteta
     - Medicament
+ ```
