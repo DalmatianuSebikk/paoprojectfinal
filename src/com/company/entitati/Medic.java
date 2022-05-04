@@ -1,17 +1,31 @@
-package com.company;
+package com.company.entitati;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Medic {
+
     private String nume;
     private int numarDePacienti;
     private String specializare;
 
+    private int thisID;
+    private static int ID = 0;
+
+    public int getThisID() {
+        return thisID;
+    }
+
+    public void setThisID(int thisID) {
+        this.thisID = thisID;
+    }
+
     private List<Programare> listaProgramari = new ArrayList<Programare>();
 
     public Medic(String nume, int numarDePacienti, String specializare, List<Programare> listaProgramari) {
+        ID++;
+        this.thisID = ID;
         this.nume = nume;
         this.numarDePacienti = numarDePacienti;
         this.specializare = specializare;
@@ -20,12 +34,16 @@ public class Medic {
 
     // Constructor cand vrem sa adaugam separat in listaProgramari.
     public Medic(String nume, int numarDePacienti, String specializare) {
+        ID++;
+        this.thisID = ID;
         this.nume = nume;
         this.numarDePacienti = numarDePacienti;
         this.specializare = specializare;
     }
 
     public Medic() {
+        ID++;
+        this.thisID = ID;
     }
 
     public String getNume() {
@@ -85,6 +103,7 @@ public class Medic {
     @Override
     public String toString() {
         return "Medic{" +
+                "ID=" + thisID + ' ' +
                 "nume='" + nume + '\'' +
                 ", numarDePacienti=" + numarDePacienti +
                 ", specializare='" + specializare + '\'' +

@@ -1,5 +1,13 @@
 package com.company;
 
+import com.company.entitati.*;
+import com.company.servicii.CSVNefunctionabil;
+import com.company.servicii.CSVReadService;
+import com.company.servicii.CSVWriteService;
+import com.company.servicii.Serviciu;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /*
@@ -30,69 +38,84 @@ import java.util.*;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, NoSuchFieldException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
+
+        // CSVNEFUNCTIONABIL este defect pentru clasele care contin referinte catre alte clase, dar merge pentru cazurile in care ai doar date primitive de citit si atat.
+
+
+        CSVReadService csvReadService = new CSVReadService();
+        CSVWriteService csvWriteService = new CSVWriteService();
+
+        ArrayList<Medic> listaMedici = csvReadService.readMedici("src/com/company/csv/Medici.csv");
+
+//        for(Medic medic: lista) {
+//            System.out.println(medic);
+//        }
+
+        ArrayList<Analiza> listaAnalize = csvReadService.readAnalize("src/com/company/csv/Analize.csv", listaMedici);
+
+//        for(Analiza analiza: listaAnalize) {
+//            System.out.println(analiza);
+//        }
+
+        ArrayList<Consultatie> listaConsultatii = csvReadService.readConsultatii("src/com/company/csv/Consultatii.csv", listaMedici);
+
+//        for(Consultatie consultatie: listaConsultatii) {
+//            System.out.println(consultatie);
+//        }
+
+        ArrayList<Ecografie> listaEcografii = csvReadService.readEcografii("src/com/company/csv/Ecografii.csv", listaMedici);
+//        for(Ecografie ecografie: listaEcografii) {
+//            System.out.println(ecografie);
+//        }
+
+//        boolean res = csvWriteService.saveAnalize("src/com/company/csv/AnalizeOut.csv", listaAnalize, lista);
+//
+//        if(res) {
+//            System.out.println("OK");
+//        }
+//        else{
+//            System.out.println("EROARE");
+//        }
         Scanner sc = new Scanner(System.in);
-        // ------- PASUL 1. Initializam medicii si analizele disponibile -------
 
+        // INCARCARE DATE
+        ArrayList<Investigatie> listaInvestigatiiDisponibile = new ArrayList<>();
+        listaInvestigatiiDisponibile.addAll(listaAnalize);
+        listaInvestigatiiDisponibile.addAll(listaConsultatii);
+        listaInvestigatiiDisponibile.addAll(listaEcografii);
 
-        List<Medic> listaMediciDisponibili = Arrays.asList(
-                // Folosim constructorul fara lista de Programari fiindca nu le avem si nu le putem face inca.
-                new Medic("Sebi Ionel", 0, "Biochimie"),
-                new Medic("Andrei Maxim", 5, "Biochimie"),
-                new Medic("Gheorghita Zaharia", 8, "Imunologie"),
-                new Medic("Mihaela Scutelnicu", 4, "Imunologie"),
-                new Medic("Petronela Maria", 6, "Hematologie"),
-                new Medic("Ioan Rosca", 3, "Ecografie cardiaca"),
-                new Medic("Alex Lupascu", 2, "Consultatii"),
-                new Medic("Malus Camelusa", 5, "Ecografie abdomen"),
-                new Medic("Slincu Elena", 2, "Psihiatrie")
-        );
-
-
-        // Lista de investigatii in care se pot adauga si alte elemente.
-        List<Investigatie> listaInvestigatiiDisponibile = Arrays.asList(
-
-                new Analiza("APTT", 18, "Bucuresti", Arrays.asList(listaMediciDisponibili.get(4)),
-                        true, "Timp de executie: 1 zi"),
-
-                new Analiza("Acid uric seric", 11, "Bucuresti",
-                        Arrays.asList(
-                            listaMediciDisponibili.get(0),
-                            listaMediciDisponibili.get(1)
-                        ),
-                        false,
-                        "Timp de executie: 1 zi"
-                        ),
-
-                new Analiza("Feritina", 40, "Bucuresti",
-                        Arrays.asList(
-                            listaMediciDisponibili.get(0),
-                            listaMediciDisponibili.get(1)
-                ),
-                        false,
-                        "Timp de execitie: 1-3 Zile"
-                        ),
-
-                new Consultatie("Consultatie de control psihiatrie", 60, "Bucuresti",
-                        Arrays.asList(
-                        listaMediciDisponibili.get(8)
-                        ),
-                        "Psihiatrie",
-                        "Evaluarea psihologica, tratarea depresiei"),
-
-                new Ecografie("Ecografie cardiaca Doppler color IIID", 150, "Bucuresti", Arrays.asList(
-                        listaMediciDisponibili.get(5)
-                ),
-                        "Ecografie Doppler este un efect fizic descris inca din 1842, definind comportamentul unei unde",
-                        false,
-                        80
-                        )
-        );
-
-
-        Serviciu clasaServiciu = new Serviciu(sc, listaInvestigatiiDisponibile, listaMediciDisponibili);
+        Serviciu clasaServiciu = new Serviciu(sc, listaInvestigatiiDisponibile, listaMedici);
         clasaServiciu.meniu();
 
+
+        // SALVEZ IN CAZUL IN CARE EXISTA MODIFICARI LA CEVA ANUME
+        boolean res = csvWriteService.saveAnalize("src/com/company/csv/Analize.csv", listaAnalize, listaMedici);
+
+        if(res) {
+            System.out.println("SAVED ANALIZE...");
+        }
+        else{
+            System.out.println("EROARE SALVARE ANALIZE...");
+        }
+
+        res = csvWriteService.saveConsultatii("src/com/company/csv/Consultatii.csv", listaConsultatii, listaMedici);
+
+        if(res) {
+            System.out.println("SAVED CONSULTATII...");
+        }
+        else{
+            System.out.println("EROARE SALVARE CONSULTATII...");
+        }
+
+        res = csvWriteService.saveEcografii("src/com/company/csv/Ecografii.csv", listaEcografii, listaMedici);
+
+        if(res) {
+            System.out.println("SAVED CONSULTATII...");
+        }
+        else{
+            System.out.println("EROARE SALVARE CONSULTATII...");
+        }
     }
 }

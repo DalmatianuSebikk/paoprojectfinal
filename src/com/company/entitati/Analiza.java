@@ -1,5 +1,4 @@
-package com.company;
-import com.company.Investigatie;
+package com.company.entitati;
 
 import java.util.List;
 
@@ -11,6 +10,10 @@ public class Analiza extends Investigatie {
         super(nume, pret, locatieCabinet, listaDeMedici);
         this.limitaDeVarsta = limitaDeVarsta;
         this.descriereAnaliza = descriereAnaliza;
+    }
+
+    public Analiza(){
+        super();
     }
 
     public Boolean getLimitaDeVarsta() {

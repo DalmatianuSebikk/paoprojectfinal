@@ -1,4 +1,4 @@
-package com.company;
+package com.company.entitati;
 
 import java.util.List;
 
@@ -12,6 +12,10 @@ public class Consultatie extends Investigatie {
         super(nume, pret, locatieCabinet, listaDeMedici);
         this.tip = tip;
         this.descriereConsultatie = descriereConsultatie;
+    }
+
+    public Consultatie() {
+        super();
     }
 
     public String getTip() {

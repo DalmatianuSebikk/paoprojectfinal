@@ -1,7 +1,4 @@
-package com.company;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.company.entitati;
 
 public class Programare {
 

@@ -1,4 +1,4 @@
-package com.company;
+package com.company.entitati;
 
 import java.util.List;
 
@@ -13,6 +13,10 @@ public class Ecografie extends Investigatie {
         this.descriereEcografie = descriereEcografie;
         this.limitaDeVarsta = limitaDeVarsta;
         this.durataInMinute = durataInMinute;
+    }
+
+    public Ecografie(){
+        super();
     }
 
     public String getDescriereEcografie() {

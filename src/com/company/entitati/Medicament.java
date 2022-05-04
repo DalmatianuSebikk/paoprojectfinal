@@ -1,4 +1,4 @@
-package com.company;
+package com.company.entitati;
 
 public class Medicament {
     private int medicamentID;

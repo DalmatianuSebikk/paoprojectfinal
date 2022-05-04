@@ -1,0 +1,4 @@
+nume,pret,locatieCabinet,medicID,limitaDeVarsta,descriereAnaliza
+APTT,18,Bucuresti,5,true,Timp de executie: 1 zi
+Acid uric seric,11,Bucuresti,1,false,Timp de executie: 1 zi
+Feritina,40,Bucuresti,2,false,Timp de execitie: 1-3 Zile

@@ -1,6 +1,5 @@
-package com.company;
+package com.company.entitati;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,10 @@ public abstract class Investigatie {
         this.pret = pret;
         this.locatieCabinet = locatieCabinet;
         this.listaDeMedici = listaDeMedici;
+    }
+
+    public Investigatie() {
+
     }
 
     public String getNume() {

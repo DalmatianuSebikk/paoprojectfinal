@@ -1,5 +1,4 @@
-package com.company;
-import com.company.Medicament;
+package com.company.entitati;
 
 import java.util.ArrayList;
 import java.util.List;
