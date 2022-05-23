@@ -14,6 +14,10 @@ import java.util.*;
 
 public class CSVReadService {
     private static CSVReadService instance;
+
+    private CSVReadService() {
+    }
+
     public static synchronized CSVReadService getInstance() {
         if(instance == null) {
             instance = new CSVReadService();

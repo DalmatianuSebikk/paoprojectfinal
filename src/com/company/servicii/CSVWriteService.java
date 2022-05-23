@@ -14,6 +14,10 @@ import java.util.List;
 public class CSVWriteService {
 
     private static CSVWriteService instance;
+
+    private CSVWriteService() {
+    }
+
     public static synchronized CSVWriteService getInstance() {
         if(instance == null) {
             instance = new CSVWriteService();

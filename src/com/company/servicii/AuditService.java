@@ -9,7 +9,10 @@ public class AuditService {
 
     private static AuditService instance;
 
-    private static synchronized AuditService getInstance() {
+    private AuditService() {
+    }
+
+    public static synchronized AuditService getInstance() {
         if(instance == null) {
             instance = new AuditService();
         }

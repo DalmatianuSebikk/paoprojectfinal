@@ -44,8 +44,8 @@ public class Main {
         // CSVNEFUNCTIONABIL este defect pentru clasele care contin referinte catre alte clase, dar merge pentru cazurile in care ai doar date primitive de citit si atat.
 
 
-        CSVReadService csvReadService = new CSVReadService();
-        CSVWriteService csvWriteService = new CSVWriteService();
+        CSVReadService csvReadService = CSVReadService.getInstance();
+        CSVWriteService csvWriteService = CSVWriteService.getInstance();
 
         ArrayList<Medic> listaMedici = csvReadService.readMedici("src/com/company/csv/Medici.csv");
 

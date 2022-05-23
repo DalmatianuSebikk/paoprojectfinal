@@ -220,14 +220,14 @@ public class Serviciu {
 
     public void meniu() {
         // Creez o lista de clienti:
-        List<Client> listaClienti = new ArrayList<Client>();
+        List<Client> listaClienti = new ArrayList<>();
 
 
         // Creez o lista de programari
-        List<Programare> listaProgramariTotal = new ArrayList<Programare>();
-        List<Programare> listaProgramariClient = new ArrayList<Programare>();
+        List<Programare> listaProgramariTotal = new ArrayList<>();
+        List<Programare> listaProgramariClient = new ArrayList<>();
 
-        AuditService auditService = new AuditService();
+        AuditService auditService = AuditService.getInstance();
         // -------- parte cu meniu ----
 
         try {
@@ -484,8 +484,6 @@ public class Serviciu {
                             }
 
                         }
-
-
                     }
 
                     break;
