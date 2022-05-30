@@ -8,15 +8,15 @@ public class Consultatie extends Investigatie {
 
     // Constructori
 
-    public Consultatie(String nume, int pret, String locatieCabinet, List<Medic> listaDeMedici, String tip, String descriereConsultatie) {
+    public Consultatie(String nume, int pret, String locatieCabinet, List<Medic> listaDeMedici, String descriereConsultatie) {
         super(nume, pret, locatieCabinet, listaDeMedici);
-        this.tip = tip;
         this.descriereConsultatie = descriereConsultatie;
     }
 
     public Consultatie() {
         super();
     }
+
 
     public String getTip() {
         return tip;
