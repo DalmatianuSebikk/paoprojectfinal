@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.entitati.*;
+import com.company.mySQL.SeedClass;
 import com.company.servicii.CSVNefunctionabil;
 import com.company.servicii.CSVReadService;
 import com.company.servicii.CSVWriteService;
@@ -43,6 +44,8 @@ public class Main {
 
         // CSVNEFUNCTIONABIL este defect pentru clasele care contin referinte catre alte clase, dar merge pentru cazurile in care ai doar date primitive de citit si atat.
 
+        SeedClass seedClass = SeedClass.getInstance();
+        seedClass.seed();
 
         CSVReadService csvReadService = CSVReadService.getInstance();
         CSVWriteService csvWriteService = CSVWriteService.getInstance();
@@ -91,31 +94,33 @@ public class Main {
 
 
         // SALVEZ IN CAZUL IN CARE EXISTA MODIFICARI LA CEVA ANUME
-        boolean res = csvWriteService.saveAnalize("src/com/company/csv/Analize.csv", listaAnalize, listaMedici);
+//        boolean res = csvWriteService.saveAnalize("src/com/company/csv/Analize.csv", listaAnalize, listaMedici);
+//
+//        if(res) {
+//            System.out.println("SAVED ANALIZE...");
+//        }
+//        else{
+//            System.out.println("EROARE SALVARE ANALIZE...");
+//        }
+//
+//        res = csvWriteService.saveConsultatii("src/com/company/csv/Consultatii.csv", listaConsultatii, listaMedici);
+//
+//        if(res) {
+//            System.out.println("SAVED CONSULTATII...");
+//        }
+//        else{
+//            System.out.println("EROARE SALVARE CONSULTATII...");
+//        }
+//
+//        res = csvWriteService.saveEcografii("src/com/company/csv/Ecografii.csv", listaEcografii, listaMedici);
+//
+//        if(res) {
+//            System.out.println("SAVED CONSULTATII...");
+//        }
+//        else{
+//            System.out.println("EROARE SALVARE CONSULTATII...");
+//        }
 
-        if(res) {
-            System.out.println("SAVED ANALIZE...");
-        }
-        else{
-            System.out.println("EROARE SALVARE ANALIZE...");
-        }
 
-        res = csvWriteService.saveConsultatii("src/com/company/csv/Consultatii.csv", listaConsultatii, listaMedici);
-
-        if(res) {
-            System.out.println("SAVED CONSULTATII...");
-        }
-        else{
-            System.out.println("EROARE SALVARE CONSULTATII...");
-        }
-
-        res = csvWriteService.saveEcografii("src/com/company/csv/Ecografii.csv", listaEcografii, listaMedici);
-
-        if(res) {
-            System.out.println("SAVED CONSULTATII...");
-        }
-        else{
-            System.out.println("EROARE SALVARE CONSULTATII...");
-        }
     }
 }

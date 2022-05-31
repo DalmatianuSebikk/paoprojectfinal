@@ -34,7 +34,7 @@ public class JDBCConnection {
         }
         catch(Exception e) {
             System.out.println("Eroare:");
-            System.out.println(Arrays.toString(e.getStackTrace()));
+            System.out.println(e);
             return null;
         }
     }

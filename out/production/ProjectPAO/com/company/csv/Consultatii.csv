@@ -1,2 +1,2 @@
-nume,pret,locatieCabinet,medicID,descriereConsultatie
-Consultatie de control psihiatrie,60,Bucuresti,5,Evaluarea psihologica si tratarea depresiei
+nume,pret,locatieCabinet,medicID,descriereConsultatie,limitaDeVarsta
+Consultatie de control psihiatrie,60,Bucuresti,5, Evaluarea psihologica si tratarea depresiei

@@ -1,5 +1,9 @@
 comandaUtilizata,dataUtilizare,user
-medicLogin,03:41:07.760067600,Sebi Ionel
-printProgramari,03:41:09.548817300,Sebi Ionel
-printClientiCuProgramareRefuzata,03:41:11.378608300,Sebi Ionel
-printInvestigatii,03:41:15.959360,Sebi Ionel
+createUserClient,09:57:10.553741700,Sebi John
+viewInvestigatiiPacient,09:57:13.479632300,Sebi John
+viewMediciPacient,09:57:15.736191600,Sebi John
+createProgramareClient,09:57:37.181712500,Sebi John
+viewProgramariPacient,09:57:39.723681400,Sebi John
+medicLogin,09:57:52.675780,Petronela Maria
+printProgramari,09:57:54.142334300,Petronela Maria
+printClientiCuProgramareRefuzata,09:58:01.521591,Petronela Maria

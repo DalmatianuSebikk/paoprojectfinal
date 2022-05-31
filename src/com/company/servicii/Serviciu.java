@@ -1,9 +1,7 @@
 package com.company.servicii;
 
-import com.company.entitati.Client;
-import com.company.entitati.Investigatie;
-import com.company.entitati.Medic;
-import com.company.entitati.Programare;
+import com.company.entitati.*;
+import com.company.mySQL.DatabaseService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +14,7 @@ public class Serviciu {
 
     private List<Investigatie> listaInvestigatiiDisponibile;
     private List<Medic> listaMediciDisponibili;
+    DatabaseService databaseService = DatabaseService.getInstance();
 
     public Serviciu(Scanner sc, List<Investigatie> listaInvestigatiiDisponibile, List<Medic> listaMediciDisponibili) {
         this.sc = sc;
@@ -86,31 +85,79 @@ public class Serviciu {
     }
 
     private void afisareInvestigatii() {
-        int index = 0;
-        for (Investigatie investigatie: listaInvestigatiiDisponibile) {
-            System.out.println(index + ". :" + investigatie);
-            index += 1;
+//        int index = 0;
+//        for (Investigatie investigatie: listaInvestigatiiDisponibile) {
+//            System.out.println(index + ". :" + investigatie);
+//            index += 1;
+//        }
+        databaseService.selectAllAnalize();
+        databaseService.selectAllEcografii();
+        databaseService.selectAllConsultatii();
+
+    }
+
+    private void stergereInvestigatii() {
+        int index;
+        String tip;
+        System.out.println("ID investigatie: ");
+        index = sc.nextInt();
+
+        System.out.println("Tip investigatie (Analiza, Consultatie, Ecografie):");
+        sc.skip("\\R?");
+        tip = sc.nextLine();
+
+        if(Objects.equals(tip, "Analiza")) {
+            databaseService.deleteAnaliza(index);
         }
+
+        else if(Objects.equals(tip, "Consultatie")) {
+            databaseService.deleteConsultatie(index);
+        }
+
+        else if(Objects.equals(tip, "Ecografie")) {
+           databaseService.deleteEcografie(index);
+        }
+
     }
 
     private void modificareInvestigatii() {
         int index;
+        String tip;
+        System.out.println("ID investigatie: ");
+        index = sc.nextInt();
+        Investigatie investigatie = null;
 
-        while(true) {
-            System.out.println("Investigatii size: " + listaInvestigatiiDisponibile.size());
-            System.out.println("Indexul investigatiei: ");
-            index = sc.nextInt();
+        System.out.println("Tip investigatie (Analiza, Consultatie, Ecografie):");
+        sc.skip("\\R?");
+        tip = sc.nextLine();
 
+        if(Objects.equals(tip, "Analiza")) {
+            investigatie = databaseService.selectAnalizaWithID(index);
 
-            if(index > listaInvestigatiiDisponibile.size() || index < 0) {
-                System.out.println("Index gresit");
-            }
-            else {
-                break;
+            if(investigatie == null) {
+                System.out.println("Esuat.");
+                return;
             }
         }
 
-        Investigatie investigatie = listaInvestigatiiDisponibile.get(index);
+        else if(Objects.equals(tip, "Consultatie")) {
+            investigatie = databaseService.selectConsultatieWithID(index);
+
+            if(investigatie == null) {
+                System.out.println("Esuat.");
+                return;
+            }
+        }
+
+        else if(Objects.equals(tip, "Ecografie")) {
+            investigatie = databaseService.selectEcografieWithID(index);
+
+            if(investigatie == null) {
+                System.out.println("Esuat.");
+                return;
+            }
+        }
+
         String nume = "";
         int pret = -1;
         String locatieCabinet = "";
@@ -131,13 +178,32 @@ public class Serviciu {
         locatieCabinet = sc.nextLine();
 
         if(!Objects.equals(nume, "")) {
+            assert investigatie != null;
             investigatie.setNume(nume);
         }
         if(pret != -1) {
+            assert investigatie != null;
             investigatie.setPret(pret);
         }
         if(!Objects.equals(locatieCabinet, "")) {
+            assert investigatie != null;
             investigatie.setLocatieCabinet(locatieCabinet);
+        }
+
+        if(Objects.equals(tip, "Analiza")) {
+            assert investigatie instanceof Analiza;
+            databaseService.updateAnaliza((Analiza) investigatie, index);
+        }
+
+        else if(Objects.equals(tip, "Consultatie")) {
+            assert investigatie instanceof Consultatie;
+            databaseService.updateConsultatie((Consultatie) investigatie, index);
+
+        }
+
+        else if(Objects.equals(tip, "Ecografie")) {
+            assert investigatie instanceof Ecografie;
+            databaseService.updateEcografie((Ecografie) investigatie, index);
         }
 
         System.out.println("Investigatia modificata este: " + investigatie + '\n');
@@ -203,19 +269,25 @@ public class Serviciu {
     }
 
     private void afiseazaInvestigatiiPacient() {
-        int index = 0;
-        for (Investigatie investigatie: listaInvestigatiiDisponibile) {
-            System.out.println(index + ". :" + investigatie);
-            index += 1;
-        }
+//        int index = 0;
+//        for (Investigatie investigatie: listaInvestigatiiDisponibile) {
+//            System.out.println(index + ". :" + investigatie);
+//            index += 1;
+//        }
+
+        databaseService.selectAllConsultatii();
+        databaseService.selectAllAnalize();
+        databaseService.selectAllEcografii();
     }
 
     private void afiseazaMedici() {
-        int index = 0;
-        for (Medic medic1 : listaMediciDisponibili) {
-            System.out.println(index + ". :" + medic1);
-            index += 1;
-        }
+//        int index = 0;
+//        for (Medic medic1 : listaMediciDisponibili) {
+//            System.out.println(index + ". :" + medic1);
+//            index += 1;
+//        }
+
+        databaseService.selectAllMedici();
     }
 
     public void meniu() {
@@ -287,7 +359,7 @@ public class Serviciu {
                             System.out.println("3. Modifica programare\n");
                             System.out.println("4. Afiseaza investigatii\n");
                             System.out.println("5. Modifica investigatie\n");
-
+                            System.out.println("6. Stergere investigatie\n");
                             alegere = sc.nextInt();
 
                             switch(alegere) {
@@ -345,6 +417,15 @@ public class Serviciu {
                                     // Validare index
                                     modificareInvestigatii();
 
+                                    try{
+                                        auditService.addInAudit("src/com/company/csv/Audit.csv", "modificareInvestigatii", numeMedicLogat);
+                                    } catch(IOException e) {
+                                        e.getStackTrace();
+                                    }
+                                    break;
+
+                                case 6:
+                                    stergereInvestigatii();
                                     try{
                                         auditService.addInAudit("src/com/company/csv/Audit.csv", "modificareInvestigatii", numeMedicLogat);
                                     } catch(IOException e) {
